@@ -56,23 +56,19 @@ button{
 
     <!-- Page 2 -->
     <div class="page">
-        <h1>Wait 😏</h1>
-        <p>You are really special 💖</p>
+        <h1>But something before that..</h1>
+        <p>I'm really sorry for all these days.</p>
         <button onclick="nextPage()">Next</button>
     </div>
 
     <!-- Page 3 -->
     <div class="page">
-        <h1>Happy Birthday 🎂</h1>
+        <h1>Happy Birthday ASHA 🎂</h1>
         <p id="msg"></p>
         <button onclick="start()">Open</button>
     </div>
 
 </div>
-
-<audio id="music">
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
-</audio>
 
 <script>
 let page = 0;
@@ -84,9 +80,21 @@ function nextPage(){
 }
 
 function start(){
-    document.getElementById("music").play();
-    document.getElementById("msg").innerHTML =
-        "You are amazing 💖✨ Have the best birthday!";
+    document.getElementById("msg").innerHTML = `
+Wishing you a fabulous birthday surrounded by love, joy, and all the things that make you smile. You deserve a great future.
+
+The days I spent with you were so memorable—I still cherish them. I’ve made a lot of promises, and I don’t know if I’ll always be able to keep them. I’m really sorry for that.
+
+You’re one of the best souls I’ve ever met, and I’m truly glad to have you in my life. You are so sweet and sensitive at the same time, and I hope no one ever takes advantage of that.
+
+Even if someone does, I know I won’t stay silent.
+
+I hope I’m always there by your side, and I hope you remember that I’ll always be there for you.
+
+Happy Birthday, Zee.
+With love,
+Nisma (Azee) 💖
+`;
 }
 </script>
 
