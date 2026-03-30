@@ -3,37 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Birthday Surprise 🎂</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+<title>Birthday 🎂</title>
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    font-family:'Poppins',sans-serif;
-}
-
 body{
+    margin:0;
+    font-family: Arial;
     overflow:hidden;
-    height:100vh;
-    background: linear-gradient(-45deg,#ff6a88,#ff99ac,#6a11cb,#2575fc);
-    background-size:400% 400%;
-    animation: bg 10s infinite;
-}
-
-@keyframes bg{
-    0%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-    100%{background-position:0% 50%;}
 }
 
 /* container */
 .container{
     display:flex;
     width:300vw;
-    height:100vh;
-    transition:0.8s ease;
+    transition: transform 0.6s ease-in-out;
 }
 
 /* pages */
@@ -44,59 +27,18 @@ body{
     justify-content:center;
     align-items:center;
     flex-direction:column;
+    background: linear-gradient(135deg,#ff758c,#ff7eb3);
     color:white;
-}
-
-/* glass card */
-.card{
-    background: rgba(255,255,255,0.15);
-    padding:40px;
-    border-radius:25px;
-    backdrop-filter: blur(20px);
     text-align:center;
-}
-
-h1{
-    font-size:40px;
-}
-
-p{
-    margin-top:10px;
 }
 
 /* button */
 button{
-    margin-top:20px;
-    padding:12px 25px;
+    padding:10px 20px;
     border:none;
-    border-radius:30px;
-    background:#fff;
-    color:#ff4b6e;
+    border-radius:20px;
+    margin-top:20px;
     cursor:pointer;
-    transition:0.3s;
-}
-
-button:hover{
-    transform:scale(1.1);
-}
-
-/* typing */
-#msg{
-    margin-top:15px;
-}
-
-/* confetti */
-.confetti{
-    position:absolute;
-    width:8px;
-    height:8px;
-    background:white;
-    animation: fall linear infinite;
-}
-
-@keyframes fall{
-    from{ transform: translateY(-100vh);}
-    to{ transform: translateY(100vh);}
 }
 </style>
 </head>
@@ -105,36 +47,30 @@ button:hover{
 
 <div class="container" id="container">
 
-    <!-- PAGE 1 -->
+    <!-- Page 1 -->
     <div class="page">
-        <div class="card">
-            <h1>Hey You 👀</h1>
-            <p>I got something for you...</p>
-            <button onclick="nextPage()">Next ➡️</button>
-        </div>
+        <h1>Hey 👀</h1>
+        <p>I made something for you</p>
+        <button onclick="nextPage()">Next</button>
     </div>
 
-    <!-- PAGE 2 -->
+    <!-- Page 2 -->
     <div class="page">
-        <div class="card">
-            <h1>Waittt 😏</h1>
-            <p>You’re really special, you know that?</p>
-            <button onclick="nextPage()">Continue 💖</button>
-        </div>
+        <h1>Wait 😏</h1>
+        <p>You are really special 💖</p>
+        <button onclick="nextPage()">Next</button>
     </div>
 
-    <!-- PAGE 3 -->
+    <!-- Page 3 -->
     <div class="page">
-        <div class="card">
-            <h1>Happy Birthday 🎂</h1>
-            <p id="msg"></p>
-            <button onclick="start()">Open Surprise 🎁</button>
-        </div>
+        <h1>Happy Birthday 🎂</h1>
+        <p id="msg"></p>
+        <button onclick="start()">Open</button>
     </div>
 
 </div>
 
-<audio id="music" loop>
+<audio id="music">
     <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
 </audio>
 
@@ -144,38 +80,13 @@ let page = 0;
 function nextPage(){
     page++;
     document.getElementById("container").style.transform =
-    "translateX(-" + (page * 100) + "vw)";
+        "translateX(-" + page + "00vw)";
 }
 
-/* typing effect */
-function typeText(text){
-    let i=0;
-    let msg=document.getElementById("msg");
-    msg.innerHTML="";
-
-    function typing(){
-        if(i<text.length){
-            msg.innerHTML+=text.charAt(i);
-            i++;
-            setTimeout(typing,40);
-        }
-    }
-    typing();
-}
-
-/* final surprise */
 function start(){
     document.getElementById("music").play();
-
-    typeText("You make everything better just by existing 💖✨ Never stop being YOU 😌");
-
-    for(let i=0;i<80;i++){
-        let c=document.createElement("div");
-        c.className="confetti";
-        c.style.left=Math.random()*100+"vw";
-        c.style.animationDuration=(Math.random()*3+2)+"s";
-        document.body.appendChild(c);
-    }
+    document.getElementById("msg").innerHTML =
+        "You are amazing 💖✨ Have the best birthday!";
 }
 </script>
 
