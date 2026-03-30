@@ -21,38 +21,49 @@ body{
     display:flex;
     justify-content:center;
     align-items:center;
-    background: radial-gradient(circle at top, #ff758c, #ff7eb3, #6a11cb);
     overflow:hidden;
     color:white;
+    background: linear-gradient(-45deg, #ff6a88, #ff99ac, #6a11cb, #2575fc);
+    background-size: 400% 400%;
+    animation: gradientBG 10s ease infinite;
 }
 
-/* floating glow background */
-body::before{
-    content:"";
+/* animated gradient */
+@keyframes gradientBG {
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+/* glowing particles */
+.particle{
     position:absolute;
-    width:600px;
-    height:600px;
-    background:rgba(255,255,255,0.1);
-    filter:blur(120px);
+    width:6px;
+    height:6px;
+    background:white;
     border-radius:50%;
-    top:-100px;
-    left:-100px;
+    opacity:0.7;
+    animation: floatUp linear infinite;
 }
 
-/* main card */
+@keyframes floatUp{
+    from{ transform: translateY(100vh);}
+    to{ transform: translateY(-10vh);}
+}
+
+/* card */
 .card{
     position:relative;
     padding:50px;
     border-radius:30px;
     backdrop-filter: blur(25px);
-    background: rgba(255,255,255,0.1);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    background: rgba(255,255,255,0.12);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
     text-align:center;
-    max-width:400px;
+    max-width:420px;
     animation: float 4s ease-in-out infinite;
 }
 
-/* floating animation */
 @keyframes float{
     0%,100%{ transform: translateY(0);}
     50%{ transform: translateY(-15px);}
@@ -61,10 +72,10 @@ body::before{
 h1{
     font-size:42px;
     font-weight:600;
-    margin-bottom:15px;
 }
 
 p{
+    margin-top:10px;
     font-size:18px;
     opacity:0.85;
 }
@@ -80,19 +91,17 @@ button{
     font-size:16px;
     cursor:pointer;
     transition:0.3s;
-    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+    box-shadow:0 10px 30px rgba(0,0,0,0.4);
 }
 
 button:hover{
     transform: scale(1.1);
-    box-shadow:0 15px 35px rgba(0,0,0,0.5);
 }
 
 /* typing text */
 #msg{
     margin-top:20px;
     min-height:40px;
-    font-weight:300;
 }
 
 /* confetti */
@@ -101,7 +110,6 @@ button:hover{
     width:8px;
     height:8px;
     background:white;
-    opacity:0.8;
     animation: fall linear infinite;
 }
 
@@ -121,10 +129,15 @@ button:hover{
     <p id="msg"></p>
 </div>
 
+<!-- 🎵 MUSIC -->
+<audio id="music" loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
 <script>
+/* typing effect */
 function typeText(text){
     let i=0;
-    let speed=40;
     let msg=document.getElementById("msg");
     msg.innerHTML="";
 
@@ -132,14 +145,17 @@ function typeText(text){
         if(i<text.length){
             msg.innerHTML+=text.charAt(i);
             i++;
-            setTimeout(typing,speed);
+            setTimeout(typing,40);
         }
     }
     typing();
 }
 
+/* main action */
 function start(){
-    typeText("You are literally one of the most amazing people ever 💖✨ Never change. Stay awesome 😌🎂");
+    document.getElementById("music").play();
+
+    typeText("You’re not just special… you’re unforgettable 💖✨ Hope your day is magical 🎂");
 
     for(let i=0;i<80;i++){
         let c=document.createElement("div");
@@ -148,6 +164,15 @@ function start(){
         c.style.animationDuration=(Math.random()*3+2)+"s";
         document.body.appendChild(c);
     }
+}
+
+/* particles */
+for(let i=0;i<40;i++){
+    let p=document.createElement("div");
+    p.className="particle";
+    p.style.left=Math.random()*100+"vw";
+    p.style.animationDuration=(Math.random()*5+5)+"s";
+    document.body.appendChild(p);
 }
 </script>
 
