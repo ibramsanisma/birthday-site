@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Happy Birthday 🎂</title>
+<title>Birthday Surprise 🎂</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
 
@@ -12,96 +11,78 @@
 *{
     margin:0;
     padding:0;
-    box-sizing:border-box;
     font-family:'Poppins',sans-serif;
 }
 
 body{
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
     overflow:hidden;
-    color:white;
-    background: linear-gradient(-45deg, #ff6a88, #ff99ac, #6a11cb, #2575fc);
-    background-size: 400% 400%;
-    animation: gradientBG 10s ease infinite;
+    height:100vh;
+    background: linear-gradient(-45deg,#ff6a88,#ff99ac,#6a11cb,#2575fc);
+    background-size:400% 400%;
+    animation: bg 10s infinite;
 }
 
-/* animated gradient */
-@keyframes gradientBG {
+@keyframes bg{
     0%{background-position:0% 50%;}
     50%{background-position:100% 50%;}
     100%{background-position:0% 50%;}
 }
 
-/* glowing particles */
-.particle{
-    position:absolute;
-    width:6px;
-    height:6px;
-    background:white;
-    border-radius:50%;
-    opacity:0.7;
-    animation: floatUp linear infinite;
+/* container */
+.container{
+    display:flex;
+    width:300vw;
+    height:100vh;
+    transition:0.8s ease;
 }
 
-@keyframes floatUp{
-    from{ transform: translateY(100vh);}
-    to{ transform: translateY(-10vh);}
+/* pages */
+.page{
+    width:100vw;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    color:white;
 }
 
-/* card */
+/* glass card */
 .card{
-    position:relative;
-    padding:50px;
-    border-radius:30px;
-    backdrop-filter: blur(25px);
-    background: rgba(255,255,255,0.12);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    background: rgba(255,255,255,0.15);
+    padding:40px;
+    border-radius:25px;
+    backdrop-filter: blur(20px);
     text-align:center;
-    max-width:420px;
-    animation: float 4s ease-in-out infinite;
-}
-
-@keyframes float{
-    0%,100%{ transform: translateY(0);}
-    50%{ transform: translateY(-15px);}
 }
 
 h1{
-    font-size:42px;
-    font-weight:600;
+    font-size:40px;
 }
 
 p{
     margin-top:10px;
-    font-size:18px;
-    opacity:0.85;
 }
 
 /* button */
 button{
-    margin-top:30px;
-    padding:14px 30px;
+    margin-top:20px;
+    padding:12px 25px;
     border:none;
-    border-radius:50px;
-    background: linear-gradient(45deg,#ff4b6e,#ff758c);
-    color:white;
-    font-size:16px;
+    border-radius:30px;
+    background:#fff;
+    color:#ff4b6e;
     cursor:pointer;
     transition:0.3s;
-    box-shadow:0 10px 30px rgba(0,0,0,0.4);
 }
 
 button:hover{
-    transform: scale(1.1);
+    transform:scale(1.1);
 }
 
-/* typing text */
+/* typing */
 #msg{
-    margin-top:20px;
-    min-height:40px;
+    margin-top:15px;
 }
 
 /* confetti */
@@ -114,27 +95,58 @@ button:hover{
 }
 
 @keyframes fall{
-    from{ transform: translateY(-100vh) rotate(0deg);}
-    to{ transform: translateY(100vh) rotate(360deg);}
+    from{ transform: translateY(-100vh);}
+    to{ transform: translateY(100vh);}
 }
 </style>
 </head>
 
 <body>
 
-<div class="card">
-    <h1>Happy Birthday 💖</h1>
-    <p>Tap to unlock your surprise 🎁</p>
-    <button onclick="start()">Open Surprise</button>
-    <p id="msg"></p>
+<div class="container" id="container">
+
+    <!-- PAGE 1 -->
+    <div class="page">
+        <div class="card">
+            <h1>Hey You 👀</h1>
+            <p>I got something for you...</p>
+            <button onclick="nextPage()">Next ➡️</button>
+        </div>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div class="page">
+        <div class="card">
+            <h1>Waittt 😏</h1>
+            <p>You’re really special, you know that?</p>
+            <button onclick="nextPage()">Continue 💖</button>
+        </div>
+    </div>
+
+    <!-- PAGE 3 -->
+    <div class="page">
+        <div class="card">
+            <h1>Happy Birthday 🎂</h1>
+            <p id="msg"></p>
+            <button onclick="start()">Open Surprise 🎁</button>
+        </div>
+    </div>
+
 </div>
 
-<!-- 🎵 MUSIC -->
 <audio id="music" loop>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">
 </audio>
 
 <script>
+let page = 0;
+
+function nextPage(){
+    page++;
+    document.getElementById("container").style.transform =
+    "translateX(-" + (page * 100) + "vw)";
+}
+
 /* typing effect */
 function typeText(text){
     let i=0;
@@ -151,11 +163,11 @@ function typeText(text){
     typing();
 }
 
-/* main action */
+/* final surprise */
 function start(){
     document.getElementById("music").play();
 
-    typeText("You’re not just special… you’re unforgettable 💖✨ Hope your day is magical 🎂");
+    typeText("You make everything better just by existing 💖✨ Never stop being YOU 😌");
 
     for(let i=0;i<80;i++){
         let c=document.createElement("div");
@@ -164,15 +176,6 @@ function start(){
         c.style.animationDuration=(Math.random()*3+2)+"s";
         document.body.appendChild(c);
     }
-}
-
-/* particles */
-for(let i=0;i<40;i++){
-    let p=document.createElement("div");
-    p.className="particle";
-    p.style.left=Math.random()*100+"vw";
-    p.style.animationDuration=(Math.random()*5+5)+"s";
-    document.body.appendChild(p);
 }
 </script>
 
