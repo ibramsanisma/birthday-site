@@ -1,103 +1,154 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Happy Birthday 🎂</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', sans-serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        body {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(135deg, #ff6a88, #ff99ac);
-            overflow: hidden;
-        }
+<title>Happy Birthday 🎂</title>
 
-        .card {
-            backdrop-filter: blur(15px);
-            background: rgba(255,255,255,0.15);
-            border-radius: 25px;
-            padding: 40px;
-            text-align: center;
-            color: white;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            animation: fadeIn 1.5s ease;
-        }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
 
-        h1 {
-            font-size: 40px;
-            margin-bottom: 15px;
-        }
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
 
-        p {
-            font-size: 18px;
-            opacity: 0.9;
-        }
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: radial-gradient(circle at top, #ff758c, #ff7eb3, #6a11cb);
+    overflow:hidden;
+    color:white;
+}
 
-        button {
-            margin-top: 25px;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 30px;
-            background: white;
-            color: #ff4b6e;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+/* floating glow background */
+body::before{
+    content:"";
+    position:absolute;
+    width:600px;
+    height:600px;
+    background:rgba(255,255,255,0.1);
+    filter:blur(120px);
+    border-radius:50%;
+    top:-100px;
+    left:-100px;
+}
 
-        button:hover {
-            transform: scale(1.1);
-        }
+/* main card */
+.card{
+    position:relative;
+    padding:50px;
+    border-radius:30px;
+    backdrop-filter: blur(25px);
+    background: rgba(255,255,255,0.1);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    text-align:center;
+    max-width:400px;
+    animation: float 4s ease-in-out infinite;
+}
 
-        @keyframes fadeIn {
-            from {opacity: 0; transform: translateY(30px);}
-            to {opacity: 1; transform: translateY(0);}
-        }
+/* floating animation */
+@keyframes float{
+    0%,100%{ transform: translateY(0);}
+    50%{ transform: translateY(-15px);}
+}
 
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: white;
-            animation: fall 5s linear infinite;
-        }
+h1{
+    font-size:42px;
+    font-weight:600;
+    margin-bottom:15px;
+}
 
-        @keyframes fall {
-            0% { transform: translateY(-100vh) rotate(0deg); }
-            100% { transform: translateY(100vh) rotate(360deg); }
-        }
-    </style>
+p{
+    font-size:18px;
+    opacity:0.85;
+}
+
+/* button */
+button{
+    margin-top:30px;
+    padding:14px 30px;
+    border:none;
+    border-radius:50px;
+    background: linear-gradient(45deg,#ff4b6e,#ff758c);
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+button:hover{
+    transform: scale(1.1);
+    box-shadow:0 15px 35px rgba(0,0,0,0.5);
+}
+
+/* typing text */
+#msg{
+    margin-top:20px;
+    min-height:40px;
+    font-weight:300;
+}
+
+/* confetti */
+.confetti{
+    position:absolute;
+    width:8px;
+    height:8px;
+    background:white;
+    opacity:0.8;
+    animation: fall linear infinite;
+}
+
+@keyframes fall{
+    from{ transform: translateY(-100vh) rotate(0deg);}
+    to{ transform: translateY(100vh) rotate(360deg);}
+}
+</style>
 </head>
 
 <body>
 
 <div class="card">
     <h1>Happy Birthday 💖</h1>
-    <p id="msg">Tap below for surprise 🎁</p>
-    <button onclick="surprise()">Open 🎉</button>
+    <p>Tap to unlock your surprise 🎁</p>
+    <button onclick="start()">Open Surprise</button>
+    <p id="msg"></p>
 </div>
 
 <script>
-    function surprise() {
-        document.getElementById("msg").innerHTML =
-        "You deserve all the happiness in the world 🥺💖✨";
+function typeText(text){
+    let i=0;
+    let speed=40;
+    let msg=document.getElementById("msg");
+    msg.innerHTML="";
 
-        for(let i=0; i<50; i++){
-            let confetti = document.createElement("div");
-            confetti.className = "confetti";
-            confetti.style.left = Math.random()*100 + "vw";
-            confetti.style.animationDuration = (Math.random()*3+2)+"s";
-            document.body.appendChild(confetti);
+    function typing(){
+        if(i<text.length){
+            msg.innerHTML+=text.charAt(i);
+            i++;
+            setTimeout(typing,speed);
         }
     }
+    typing();
+}
+
+function start(){
+    typeText("You are literally one of the most amazing people ever 💖✨ Never change. Stay awesome 😌🎂");
+
+    for(let i=0;i<80;i++){
+        let c=document.createElement("div");
+        c.className="confetti";
+        c.style.left=Math.random()*100+"vw";
+        c.style.animationDuration=(Math.random()*3+2)+"s";
+        document.body.appendChild(c);
+    }
+}
 </script>
 
 </body>
